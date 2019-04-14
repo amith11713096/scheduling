@@ -1,44 +1,50 @@
-#include<bits/stdc++.h>
-#include<stdlib.h>
-#include<iomanip>
-using namespace std;
-int OS(){
-int n,z=0,z1=0,z2=0,at=0,T=0;
-string s1;
-cout<<" \t \t ________WELCOME TO THE PROCESS SCHEDULING ____________"<<endl;
-cout<<"Enter the no of process : ";
-cin>>n;
-string ipp[n],ipp1[n],ipp2[n];
-int art[n],art2[n],bst[n],art1[n],bst1[n],bst2[n],agar[n];
-queue<string>q,qo,wait2;
-queue<int>bo;
-queue<string>final,wait,wait1;
-system("CLS");
-cout<<" \t \t ________WELCOME TO THE PROCESS SCHEDULING ____________"<<endl;
-for(int i=0;i<n;i++){
-cout<<"                                   kindly enter the following details:-                          "<<endl;
-cout<<"Enter the process name : ";
-cin>>ipp[i];
-cout<<"Enter the Arrival time of process ' "<<ipp[i]<<" ' :";
-cin>>art[i];
-art1[i]=art[i];	
-agar[i]=art[i];
-cout<<"Enter the Burst time of process ' "<<ipp[i]<<" ' :";
-cin>>bst[i];
-at+=bst[i];
-system("CLS");
-}
-cout<<" \t \t ________WELCOME TO THE PROCESS SCHEDULING ____________"<<endl;
-cout<<"  Your Data entered successfully and saved   "<<endl;
-cout<<" Kindly  press ENTER to continue the program "<<endl;
-system("PAUSE");
-system("CLS");
-cout<<" \t \t ________WELCOME TO THE PROCESS SCHEDULING ____________"<<endl;
-cout<<"  \t \t \t DATA YOU HAVE ENTERED: "<<endl; 
-cout<<"__________________________________________________________________________________"<<endl;
-cout<<"\t"<<"|"<<"Process Name"<<"|"<<setw(10)<<"|"<<"Arival Time"<<"|"<<setw(10)<<"|"<<"Burst Time"<<"|"<<endl;
-for(int j=0;j<n;j++)
-{
-cout<<"\t"<<"___________________________________________________________________________________"<<endl;
-cout<<"\t"<<" "<<ipp[j]<<setw(25)<<" "<<art[j]<<setw(23)<<" "<<bst[j]<<" "<<endl;
+#include<stdio.h> 
+ int main() 
+{ 
+ int count,j,n,time,remain,flag=0,time_quantum; 
+  int wait_time=0,turnaround_time=0,at[10],bt[10],rt[10]; 
+  printf("Enter Total Process:\t "); 
+  scanf("%d",&n); 
+  remain=n; 
+  for(count=0;count<n;count++) 
+  { 
+    printf("Enter Arrival Time and Burst Time for Process Process Number %d :",count+1); 
+    scanf("%d",&at[count]); 
+    scanf("%d",&bt[count]); 
+    rt[count]=bt[count]; 
+  } 
+  printf("Enter Time Quantum:\t"); 
+  scanf("%d",&time_quantum); 
+  printf("\n\nProcess\t|Turnaround Time|Waiting Time\n\n"); 
+  for(time=0,count=0;remain!=0;) 
+  { 
+    if(rt[count]<=time_quantum && rt[count]>0) 
+    { 
+      time+=rt[count]; 
+      rt[count]=0; 
+      flag=1; 
+    } 
+    else if(rt[count]>0) 
+    { 
+      rt[count]-=time_quantum; 
+      time+=time_quantum; 
+    } 
+    if(rt[count]==0 && flag==1) 
+    { 
+      remain--; 
+      printf("P[%d]\t|\t%d\t|\t%d\n",count+1,time-at[count],time-at[count]-bt[count]); 
+      wait_time+=time-at[count]-bt[count]; 
+      turnaround_time+=time-at[count]; 
+      flag=0; 
+    } 
+    if(count==n-1) 
+      count=0; 
+    else if(at[count+1]<=time) 
+      count++; 
+    else 
+      count=0; 
+  } 
+  printf("\nAverage Waiting Time= %f\n",wait_time*1.0/n); 
+  printf("Avg Turnaround Time = %f",turnaround_time*1.0/n); 
+  return 0;
 }
